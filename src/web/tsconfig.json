@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "types": ["vite/client"],
+    "noEmit": true,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "../shared/**/*.ts"],
+  "exclude": ["./legacy-htm/**"]
+}
