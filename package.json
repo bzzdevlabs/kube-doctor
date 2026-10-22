@@ -1,19 +1,53 @@
 {
   "name": "kube-doctor",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Local, read-only Kubernetes troubleshooting dashboard: finds every error in the current kube context and explains the root cause.",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bzzdevlabs/kube-doctor.git"
+  },
+  "keywords": [
+    "kubernetes",
+    "kubectl",
+    "troubleshooting",
+    "root-cause",
+    "dashboard",
+    "read-only"
+  ],
   "bin": {
-    "kube-doctor": "src/server.js"
+    "kube-doctor": "dist/server/server.js"
   },
-  "scripts": {
-    "start": "node src/server.js",
-    "open": "node src/server.js --open",
-    "demo": "node src/server.js --demo --open",
-    "test": "node --test"
-  },
+  "files": [
+    "dist",
+    "scripts/ensure-build.mjs",
+    "README.md"
+  ],
   "engines": {
     "node": ">=18"
   },
-  "license": "MIT"
+  "scripts": {
+    "build": "npm run build:server && npm run build:web",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:web": "vite build --config src/web/vite.config.ts",
+    "prestart": "node scripts/ensure-build.mjs",
+    "start": "node dist/server/server.js",
+    "open": "npm start -- --open",
+    "demo": "npm start -- --demo --open",
+    "dev": "tsx scripts/dev.ts",
+    "typecheck": "tsc -p tsconfig.server.json --noEmit && tsc -p src/web/tsconfig.json --noEmit && tsc -p test/tsconfig.json --noEmit",
+    "pretest": "npm run build",
+    "test": "node --import tsx --test test/analyzer.test.ts test/server.test.ts",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.1",
+    "@types/node": "^22.9.0",
+    "kubernetes-types": "^1.30.0",
+    "preact": "^10.24.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
 }
