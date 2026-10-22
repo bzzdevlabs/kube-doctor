@@ -1,0 +1,19 @@
+{
+  "name": "kube-doctor",
+  "version": "1.0.0",
+  "description": "Local, read-only Kubernetes troubleshooting dashboard: finds every error in the current kube context and explains the root cause.",
+  "type": "module",
+  "bin": {
+    "kube-doctor": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "open": "node src/server.js --open",
+    "demo": "node src/server.js --demo --open",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
